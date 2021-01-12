@@ -70,3 +70,4 @@ puts winner ? "\nCongratulations #{winner}!" : "It's a draw, nobody won!"
 puts "Thank you for playing !\n\n\n\n"
 puts 'Sleeping...'
 sleep(3)
+puts 'Good night!'
