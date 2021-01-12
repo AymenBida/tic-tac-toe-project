@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# rubocop:disable Metrics/BlockLength
 puts 'Welcome to Tic-Tac-Toe by Aymen and Patrick'
 puts 'Player 1, please enter your name: '
 name1 = gets.chomp
@@ -8,29 +9,43 @@ puts "Enter 'y' if you want to see the instructions (Press enter to continue)"
 answer = gets.chomp.downcase
 puts 'Instructions' if answer == 'y'
 loop do
-  puts 'Board'
+  winner = false
+  board.display # This displays the board state
   loop do
     # Player 1 turn
     puts "#{name1} it's your move"
-    move = gets.chomp # This will get the players input
+    until move.is_valid?
+      move = gets.chomp # This will get the players input
+      puts "Your move (#{move}) is not valid, try another move" unless move.is_valid?
+    end
     puts "#{name1}, your move was : #{move}"
-    puts 'Board'
-    # if won? <-- Method to check if player 1 wins
-    # winner = name1
-    # break
+    board.display # This displays the board state
+    if move.win?
+      winner = name1
+      break
+    elsif draw == true
+      break
+    end
     # Player 2 turn
     puts "#{name2} it's your move"
-    move = gets.chomp
+    until move.is_valid?
+      move = gets.chomp # This will get the players input
+      puts "Your move (#{move}) is not valid, try another move" unless move.is_valid?
+    end
     puts "#{name2}, your move was : #{move}"
-    puts 'Board'
-    # if won? <-- Method to check if player 2 wins
-    # winner = name2
-    # break
+    board.display # This displays the board state
+    if move.win?
+      winner = name2
+      break
+    elsif draw == true
+      break
+    end
   end
-  puts "Congratulations #{winner}!"
+  puts winner ? "Congratulations #{winner}!" : "It's a draw, nobody won!"
   puts 'Do you want to rematch ?'
   puts "Enter 'y' if you want to rematch or press enter to exit"
   answer = gets.chomp.downcase
   break unless answer == 'y'
 end
 exit(true)
+# rubocop:enable Metrics/BlockLength
