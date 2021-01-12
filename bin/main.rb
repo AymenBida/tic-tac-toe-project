@@ -13,20 +13,22 @@ loop do
     # Player 1 turn
     puts "#{name1} it's your move"
     move = gets.chomp # This will get the players input
+    puts "#{name1}, your move was : #{move}"
     puts 'Board'
     # if won? <-- Method to check if player 1 wins
-      # winner = name1
-      # break
+    # winner = name1
+    # break
     # Player 2 turn
     puts "#{name2} it's your move"
     move = gets.chomp
+    puts "#{name2}, your move was : #{move}"
     puts 'Board'
     # if won? <-- Method to check if player 2 wins
-      # winner = name2
-      # break
+    # winner = name2
+    # break
   end
   puts "Congratulations #{winner}!"
-  puts "Do you want to rematch ?"
+  puts 'Do you want to rematch ?'
   puts "Enter 'y' if you want to rematch or press enter to exit"
   answer = gets.chomp.downcase
   break unless answer == 'y'
