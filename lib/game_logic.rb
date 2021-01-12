@@ -1,3 +1,11 @@
+def animate(s)
+  s.to_s
+  s.split('').each do |i|
+    print i
+    sleep(0.05)
+  end
+end
+
 class Board
   attr_reader :moves
   WIN_CASES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
@@ -36,6 +44,17 @@ class Board
     end
     false
   end
+
+  def build
+    3.times do |i|
+      animate '    -------------'
+      print "\n"
+      animate '    |   |   |   |'
+      print "\n"
+    end
+    animate '    -------------'
+    print "\n"
+  end
 end
 
 class Player
@@ -45,3 +64,4 @@ class Player
     @letter = letter
   end
 end
+

@@ -35,11 +35,10 @@ instructions if gets.chomp.downcase == 'y'
 system('clear')
 
 b = Board.new
-puts 'Creating your board...'
-sleep(1.2)
+puts 'Building your board...'
 
 winner = false
-b.show
+b.build
 loop do
   puts "\n#{player1.name}, it's your move\n"
   puts 'invalid move! please enter a number between 1 and 9' until b.make_move?(gets.chomp.to_i, player1)
