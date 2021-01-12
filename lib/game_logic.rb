@@ -1,6 +1,6 @@
-def animate(s)
-  s.to_s
-  s.split('').each do |i|
+def animate(str)
+  str.to_s
+  str.split('').each do |i|
     print i
     sleep(0.05)
   end
@@ -46,7 +46,7 @@ class Board
   end
 
   def build
-    3.times do |i|
+    3.times do
       animate '    -------------'
       print "\n"
       animate '    |   |   |   |'
@@ -64,4 +64,3 @@ class Player
     @letter = letter
   end
 end
-
