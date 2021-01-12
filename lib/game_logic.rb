@@ -1,6 +1,9 @@
 class Board
+  attr_reader :moves
+  
   def initialize
     @board = Array.new(9, ' ')
+    @moves = 0
   end
 
   def show
@@ -11,9 +14,14 @@ class Board
     puts "-------------"
   end
 
-  def is_valid?(move, turn)
+  def make_move?(move, turn)
     if @board[move - 1] == ' '
       @board[move - 1] = (turn == 1) ? 'X' : 'O'
+      @moves += 1
+      return true
     end
+    false
   end
+
+  def 
 end
