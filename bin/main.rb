@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength
 puts 'Welcome to Tic-Tac-Toe by Aymen and Patrick'
 puts 'Player 1, please enter your name: '
 name1 = gets.chomp
@@ -9,7 +12,11 @@ answer = gets.chomp.downcase
 puts 'Instructions' if answer == 'y'
 loop do
   winner = false
-  puts 'Displays board...' # board.display # This displays the board state
+  3.times do |_i|
+    puts '-------------'
+    puts '|   |   |   |'
+  end
+  puts '-------------'
   loop do
     # Player 1 turn
     puts "#{name1} it's your move"
@@ -17,7 +24,13 @@ loop do
     move = gets.chomp # This will get the players input
     # puts "Your move (#{move}) is not valid, try another move" unless move.is_valid?
     puts "#{name1}, your move was : #{move}"
-    puts 'Displays board...' # board.display # This displays the board state
+    puts '-------------'
+    puts '|   |   |   |'
+    puts '-------------'
+    puts '|   | X |   |'
+    puts '-------------'
+    puts '|   |   |   |'
+    puts '-------------'
     # if move.win?
     # winner = name1
     # break
@@ -30,7 +43,13 @@ loop do
     move = gets.chomp # This will get the players input
     # puts "Your move (#{move}) is not valid, try another move" unless move.is_valid?
     puts "#{name2}, your move was : #{move}"
-    puts 'Displays board...' # board.display # This displays the board state
+    puts '-------------'
+    puts '|   | O |   |'
+    puts '-------------'
+    puts '|   | X |   |'
+    puts '-------------'
+    puts '|   |   |   |'
+    puts '-------------'
     # if move.win?
     # winner = name2
     # break
@@ -44,4 +63,5 @@ loop do
   answer = gets.chomp.downcase
   break unless answer == 'y'
 end
+# rubocop:enable Metrics/BlockLength
 exit(true)
