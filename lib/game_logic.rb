@@ -15,9 +15,9 @@ class Board
     puts "-------------"
   end
 
-  def make_move?(move, turn)
+  def make_move?(move, player)
     if @board[move - 1] == ' '
-      @board[move - 1] = (turn == 1) ? 'X' : 'O'
+      @board[move - 1] = player.letter
       @moves += 1
       return true
     end
@@ -37,5 +37,13 @@ class Board
     else
       false
     end
+  end
+end
+
+class Player
+  attr_reader :letter
+  def initialize(name, letter)
+    @name = name
+    @letter = letter
   end
 end
