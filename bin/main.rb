@@ -1,66 +1,47 @@
 #!/usr/bin/env ruby
-# rubocop:disable Metrics/BlockLength
-puts 'Welcome to Tic-Tac-Toe by Aymen and Patrick'
-puts 'Player 1, please enter your name: '
-name1 = gets.chomp
-puts 'Player 2, please enter your name: '
-name2 = gets.chomp
-puts "Enter 'y' if you want to see the instructions (Press enter to continue)"
-answer = gets.chomp.downcase
-puts 'Instructions' if answer == 'y'
-loop do
-  winner = false
-  3.times do |_i|
-    puts '-------------'
-    puts '|   |   |   |'
-  end
-  puts '-------------'
-  loop do
-    # Player 1 turn
-    puts "#{name1} it's your move"
-    # until the move is valid?
-    move = gets.chomp # This will get the players input
-    # puts "Your move (#{move}) is not valid, try another move" unless move.is_valid?
-    puts "#{name1}, your move was : #{move}"
-    puts '-------------'
-    puts '|   |   |   |'
-    puts '-------------'
-    puts '|   | X |   |'
-    puts '-------------'
-    puts '|   |   |   |'
-    puts '-------------'
-    # if move.win?
-    # winner = name1
-    # break
-    # elsif draw == true
-    # break
-    # end
-    # Player 2 turn
-    puts "#{name2} it's your move"
-    # until move.is_valid?
-    move = gets.chomp # This will get the players input
-    # puts "Your move (#{move}) is not valid, try another move" unless move.is_valid?
-    puts "#{name2}, your move was : #{move}"
-    puts '-------------'
-    puts '|   | O |   |'
-    puts '-------------'
-    puts '|   | X |   |'
-    puts '-------------'
-    puts '|   |   |   |'
-    puts '-------------'
-    # if move.win?
-    # winner = name2
-    # break
-    # elsif draw == true
-    # break
-    # end
-  end
-  puts winner ? "Congratulations #{winner}!" : "It's a draw, nobody won!"
-  puts 'Do you want to rematch ?'
-  puts "Enter 'y' if you want to rematch or press enter to exit"
-  answer = gets.chomp.downcase
-  break unless answer == 'y'
-end
-# rubocop:enable Metrics/BlockLength
-exit(true)
 
+require_relative '../lib/game_logic.rb'
+
+puts 'Welcome to Tic-Tac-Toe by Aymen and Patrick'
+puts 'Player 1, please enter your name:'
+player1 = Player.new(gets.chomp, 'X')
+puts "Hello, #{player1.name}, you are '#{player1.letter}'\n\n"
+puts 'Player 2, please enter your name:'
+player2 = Player.new(gets.chomp, 'O')
+puts "Hello, #{player2.name}, you are '#{player2.letter}'\n\n"
+puts "Enter 'y' if you want to see the instructions (Press enter to continue)"
+puts 'Instructions\n\n' if gets.chomp.downcase == 'y'
+b = Board.new
+puts 'Creating your board...'
+sleep(1.2)
+
+winner = false
+b.show
+loop do
+  puts "\n#{player1.name}, it's your move\n"
+  puts 'invalid move! please enter a number between 1 and 9' until b.make_move?(gets.chomp.to_i, player1)
+  system('clear')
+  puts "\n"
+  b.show
+  if b.win?
+    winner = player1.name
+    break
+  elsif b.draw?
+    break
+  end
+  puts "\n#{player2.name}, it's your move\n"
+  puts 'invalid move! please enter a number between 1 and 9' until b.make_move?(gets.chomp.to_i, player2)
+  system('clear')
+  puts "\n"
+  b.show
+  if b.win?
+    winner = player2.name
+    break
+  elsif b.draw?
+    break
+  end
+end
+puts winner ? "\nCongratulations #{winner}!" : "It's a draw, nobody won!"
+puts "Thank you for playing !\n\n\n\n"
+puts 'Sleeping...'
+sleep(3)

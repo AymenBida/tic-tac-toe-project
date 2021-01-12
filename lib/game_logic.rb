@@ -1,6 +1,6 @@
 class Board
   attr_reader :moves
-  WIN_CASES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+  WIN_CASES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
 
   def initialize
     @board = Array.new(9, ' ')
@@ -9,14 +9,14 @@ class Board
 
   def show
     3.times do |i|
-      puts "-------------"
-      puts "| #{@board[i*3]} | #{@board[i*3 + 1]} | #{@board[i*3 + 2]} |"
+      puts '    -------------'
+      puts "    | #{@board[i * 3]} | #{@board[i * 3 + 1]} | #{@board[i * 3 + 2]} |"
     end
-    puts "-------------"
+    puts '    -------------'
   end
 
   def make_move?(move, player)
-    if @board[move - 1] == ' '
+    if @board[move - 1] == ' ' && move.between?(1, 9)
       @board[move - 1] = player.letter
       @moves += 1
       return true
@@ -30,18 +30,16 @@ class Board
 
   def win?
     if @moves > 4
-      WIN_CASES.each do |a_case|
-        return true if @board[a_case[0]] != ' ' && @board[a_case[0]] == @board[a_case[1]] && @board[a_case[0]] == @board[a_case[2]]
+      WIN_CASES.each do |c|
+        return true if @board[c[0]] != ' ' && @board[c[0]] == @board[c[1]] && @board[c[0]] == @board[c[2]]
       end
-      false
-    else
-      false
     end
+    false
   end
 end
 
 class Player
-  attr_reader :letter
+  attr_reader :name, :letter
   def initialize(name, letter)
     @name = name
     @letter = letter
