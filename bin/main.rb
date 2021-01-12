@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
-
 # rubocop:disable Metrics/BlockLength
 puts 'Welcome to Tic-Tac-Toe by Aymen and Patrick'
 puts 'Player 1, please enter your name: '
