@@ -25,7 +25,7 @@ class Board
   end
 
   def draw?
-    true if @moves == 9
+    @moves == 9
   end
 
   def win?
@@ -41,7 +41,7 @@ class Board
     str.to_s
     str.split('').each do |i|
       print i
-      sleep(0.05)
+      sleep(0.04)
     end
   end
 

@@ -66,7 +66,7 @@ loop do
   end
 end
 
-puts winner ? "\nCongratulations #{winner}!" : "It's a draw, nobody won!"
+puts winner ? "\nCongratulations #{winner}!" : "\nIt's a draw, nobody won!"
 puts "Thank you for playing !\n\n\n\n"
 puts 'Sleeping...'
 sleep(3)
