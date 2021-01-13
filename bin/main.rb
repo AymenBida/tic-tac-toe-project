@@ -3,6 +3,7 @@
 require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
 require_relative '../lib/bot.rb'
+require_relative '../lib/errors.rb'
 
 def instructions
   system('clear')
@@ -21,13 +22,28 @@ def instructions
   gets.chomp
 end
 
-system('clear')
-puts 'Welcome to Tic-Tac-Toe by Aymen and Patrick'
+error = nil
+player2 = nil
+loop do
+  system('clear')
+  puts 'Welcome to Tic-Tac-Toe by Aymen and Patrick'
+  puts 'Are you alone ? (yes/no)'
 
-puts 'Are you alone ? (yes/no)'
-if gets.chomp.downcase == 'yes'
-  player2 = Bot.new('Bob', 'O')
+  if error
+    print "\n"
+    puts error
+  end
+  ans = gets.chomp.downcase
+  if ans == 'yes'
+    player2 = Bot.new('Bob', 'O')
+  elsif ans == 'no'
+    break
+  else
+    error = yes_or_no
+  end
 end
+
+system('clear')
 puts 'Player 1, please enter your name:'
 player1 = Player.new(gets.chomp, 'X')
 puts "Hello, #{player1.name}, you are '#{player1.letter}'\n\n"
@@ -46,9 +62,19 @@ puts 'Building your board...'
 
 winner = false
 b.build
+system('clear')
+puts "\n"
+b.show
 loop do
   puts "\n#{player1.name}, it's your move\n"
-  puts 'invalid move! please enter a number between 1 and 9' until b.make_move?(gets.chomp.to_i, player1)
+  until b.make_move?(gets.chomp.to_i, player1)
+    system('clear')
+    puts "\n"
+    b.show
+    puts "\n"
+    puts "#{player1.name}, it's your move"
+    puts $err
+  end
   system('clear')
   puts "\n"
   b.show
@@ -64,7 +90,14 @@ loop do
     sleep(2)
     until b.make_move?(player2.do_something, player2) ;end
   else
-    puts 'invalid move! please enter a number between 1 and 9' until b.make_move?(gets.chomp.to_i, player2)
+    until b.make_move?(gets.chomp.to_i, player2)
+      system('clear')
+      puts "\n"
+      b.show
+      puts "\n"
+      puts "#{player2.name}, it's your move"
+      puts $err
+    end
   end
   system('clear')
   puts "\n"
@@ -77,7 +110,7 @@ loop do
   end
 end
 
-puts winner ? "\nCongratulations #{winner}!" : "\nIt's a draw, nobody won!"
+puts winner ? "\nCongratulations #{winner}!".bold.light_green : "\nIt's a draw, nobody won!".bold.cyan
 puts "Thank you for playing !\n\n\n\n"
 puts 'Sleeping...'
 sleep(3)

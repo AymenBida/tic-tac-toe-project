@@ -16,11 +16,15 @@ class Board
   end
 
   def make_move?(move, player)
-    if @board[move - 1] == ' ' && move.between?(1, 9)
+    if !move.between?(1, 9)
+      $err = invalid_error
+      return false
+    elsif @board[move - 1] == ' '
       @board[move - 1] = player.letter
       @moves += 1
       return true
     end
+    $err = place_taken
     false
   end
 
@@ -41,7 +45,7 @@ class Board
     str.to_s
     str.split('').each do |i|
       print i
-      sleep(0.05)
+      sleep(0.03)
     end
   end
 

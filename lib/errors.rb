@@ -1,0 +1,13 @@
+require 'colorize'
+
+def yes_or_no
+  "Please respond with yes or no.".bold.light_yellow
+end
+
+def invalid_error
+  "Please enter a number between 1 and 9.".bold.light_red
+end
+
+def place_taken
+  "Please choose another spot, this one is already taken.".bold.yellow
+end
