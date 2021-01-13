@@ -5,9 +5,10 @@ require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
 require_relative '../lib/bot.rb'
 
-languages = %w[EN FR]
+languages = %w[en fr gr]
 puts "Type 'EN' for english (english is default)"
 puts "Ecrire 'FR' pour le français"
+puts "Γράψτε 'GR' για Ελληνικά"
 choice = gets.chomp.downcase
 if languages.any?(choice)
   require_relative "../lang/#{choice}.rb"
