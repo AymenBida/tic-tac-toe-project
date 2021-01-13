@@ -1,105 +1,109 @@
 #!/usr/bin/env ruby
+# rubocop:disable Metrics/BlockLength
 
 require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
 require_relative '../lib/bot.rb'
-require_relative '../lib/errors.rb'
 
-def instructions
-  system('clear')
-  puts "You will have a 3x3 board and player 1 will have the first turn\n"
-  puts "When it's your turn enter the number of the square that you want to play (between 1 and 9)"
-  puts "Don't choose squares that are already occupied\n\n"
-  puts '    -------------'
-  puts '    | 1 | 2 | 3 |'
-  puts '    -------------'
-  puts '    | 4 | 5 | 6 |'
-  puts '    -------------'
-  puts '    | 7 | 8 | 9 |'
-  puts '    -------------'
-  puts "\nThe winner is the first one to form a line with 3 symbols vertically, horizontally or diagonally\n\n"
-  puts 'Press Enter to continue'
-  gets.chomp
+languages = %w[EN FR]
+puts "Type 'EN' for english (english is default)"
+puts "Ecrire 'FR' pour le français"
+choice = gets.chomp.downcase
+if languages.any?(choice)
+  require_relative "../lang/#{choice}.rb"
+else
+  require_relative '../lang/en.rb'
 end
 
-error = nil
+# initialisation---------
+b = Board.new
 player2 = nil
+printed_name = nil
+printed_error = nil
+name = nil
+# initialisation---------
+
 loop do
   system('clear')
-  puts 'Welcome to Tic-Tac-Toe by Aymen and Patrick'
-  puts 'Are you alone ? (yes/no)'
+  puts welcome
+  puts alone?
 
-  if $err == yes_or_no
+  if b.err == yes_or_no
     print "\n"
-    puts $err
+    puts b.err
   end
   ans = gets.chomp.downcase
-  if ans == 'yes'
+  if ans == yes
     player2 = Bot.new('Bob', 'O'.bold.light_red)
     break
-  elsif ans == 'no'
+  elsif ans == no
     break
   else
-    $err = yes_or_no
+    b.err = yes_or_no
   end
 end
+
 loop do
   system('clear')
-  puts 'Player 1, please enter your name:'
-  puts $err if $err == empty_name
-  $printed_name = gets.chomp
-  $name = $printed_name.downcase.capitalize.strip
-  break unless $name == ''
-  $err = empty_name
-  $printed_error = empty_name
+  puts player_name?(1)
+  puts b.err if b.err == empty_name
+  printed_name = gets.chomp
+  name = printed_name.downcase.capitalize.strip
+  break unless name == ''
+
+  b.err = empty_name
+  printed_error = empty_name
 end
-player1 = Player.new($name, 'X'.bold.light_blue)
-$err = nil
-puts "Hello, #{player1.name}, you are '#{player1.letter}'\n\n"
+
+player1 = Player.new(name, 'X'.bold.light_blue)
+b.err = nil
+puts greet_player(player1)
+
 unless player2
   loop do
     system('clear')
-    puts 'Player 1, please enter your name:'
-    puts $printed_error if $printed_error == empty_name
-    puts $printed_name
-    puts "Hello, #{player1.name}, you are '#{player1.letter}'\n\n"
-    puts 'Player 2, please enter your name:'
-    puts $err if [empty_name, same_name].any?($err)
-    $name = gets.chomp.downcase.capitalize.strip
-    if $name == ''
-      $err = empty_name
-    elsif $name == player1.name
-      $err = same_name
+    puts player_name?(1)
+    puts printed_error if printed_error == empty_name
+    puts printed_name
+    puts greet_player(player1)
+    puts player_name?(2)
+    puts b.err if [empty_name, same_name].any?(b.err)
+    name = gets.chomp.downcase.capitalize.strip
+    if name == ''
+      b.err = empty_name
+    elsif name == player1.name
+      b.err = same_name
     else
       break
     end
   end
-  player2 = Player.new($name, 'O'.bold.light_red)
-  $err = nil
-  puts "Hello, #{player2.name}, you are '#{player2.letter}'\n\n"
+  player2 = Player.new(name, 'O'.bold.light_red)
+  b.err = nil
+  puts greet_player(player2)
 end
 
-puts "Enter 'y' if you want to see the instructions (Press enter to continue)"
-instructions if gets.chomp.downcase == 'y'
+puts see_instructions?
+instructions if gets.chomp.downcase == yes
 system('clear')
 
-b = Board.new
-puts 'Building your board...'
+puts building
 
 winner = false
 b.build
 system('clear')
-puts "\n"
+puts done
 b.show
+
 loop do
-  puts "\n#{player1.name}, it's your move\n"
+  print "\n"
+  puts player_move?(player1)
   until b.make_move?(gets.chomp.to_i, player1)
     system('clear')
     puts "\n"
     b.show
     puts "\n"
-    puts "#{player1.name}, it's your move"
-    puts $err
+    puts player_move?(player1)
+    puts b.err
   end
   system('clear')
   puts "\n"
@@ -110,19 +114,20 @@ loop do
   elsif b.draw?
     break
   end
-  puts "\n#{player2.name}, it's your move\n"
+  print "\n"
+  puts player_move?(player2)
   if player2.is_a?(Bot)
-    puts "I'm thinking..."
+    puts bot_think
     sleep(2)
-    until b.make_move?(player2.do_something, player2) ;end
+    until b.make_move?(player2.do_something, player2); end
   else
     until b.make_move?(gets.chomp.to_i, player2)
       system('clear')
       puts "\n"
       b.show
       puts "\n"
-      puts "#{player2.name}, it's your move"
-      puts $err
+      puts player_move?(player2)
+      puts b.err
     end
   end
   system('clear')
@@ -136,8 +141,7 @@ loop do
   end
 end
 
-puts winner ? "\nCongratulations #{winner}!".bold.light_green : "\nIt's a draw, nobody won!".bold.cyan
-puts "Thank you for playing !\n\n\n\n"
-puts 'Sleeping...'
-sleep(3)
-puts 'Good night!'
+puts winner ? congrats(winner) : draw_it_is
+thanks
+
+# rubocop:enable Metrics/BlockLength

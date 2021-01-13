@@ -1,5 +1,6 @@
 class Board
   attr_reader :moves
+  attr_accessor :err
   WIN_CASES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
 
   def initialize
@@ -17,14 +18,14 @@ class Board
 
   def make_move?(move, player)
     if !move.between?(1, 9)
-      $err = invalid_error
+      @err = invalid_error
       return false
     elsif @board[move - 1] == ' '
       @board[move - 1] = player.letter
       @moves += 1
       return true
     end
-    $err = place_taken
+    @err = place_taken
     false
   end
 

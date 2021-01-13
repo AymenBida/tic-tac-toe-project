@@ -4,6 +4,6 @@ class Bot < Player
   end
 
   def do_something
-    num = rand(1..9)
+    rand(1..9)
   end
 end
