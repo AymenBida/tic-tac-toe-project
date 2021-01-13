@@ -29,27 +29,53 @@ loop do
   puts 'Welcome to Tic-Tac-Toe by Aymen and Patrick'
   puts 'Are you alone ? (yes/no)'
 
-  if error
+  if $err == yes_or_no
     print "\n"
-    puts error
+    puts $err
   end
   ans = gets.chomp.downcase
   if ans == 'yes'
-    player2 = Bot.new('Bob', 'O')
+    player2 = Bot.new('Bob', 'O'.bold.light_red)
+    break
   elsif ans == 'no'
     break
   else
-    error = yes_or_no
+    $err = yes_or_no
   end
 end
-
-system('clear')
-puts 'Player 1, please enter your name:'
-player1 = Player.new(gets.chomp, 'X')
+loop do
+  system('clear')
+  puts 'Player 1, please enter your name:'
+  puts $err if $err == empty_name
+  $printed_name = gets.chomp
+  $name = $printed_name.downcase.capitalize.strip
+  break unless $name == ''
+  $err = empty_name
+  $printed_error = empty_name
+end
+player1 = Player.new($name, 'X'.bold.light_blue)
+$err = nil
 puts "Hello, #{player1.name}, you are '#{player1.letter}'\n\n"
 unless player2
-  puts 'Player 2, please enter your name:'
-  player2 = Player.new(gets.chomp, 'O')
+  loop do
+    system('clear')
+    puts 'Player 1, please enter your name:'
+    puts $printed_error if $printed_error == empty_name
+    puts $printed_name
+    puts "Hello, #{player1.name}, you are '#{player1.letter}'\n\n"
+    puts 'Player 2, please enter your name:'
+    puts $err if [empty_name, same_name].any?($err)
+    $name = gets.chomp.downcase.capitalize.strip
+    if $name == ''
+      $err = empty_name
+    elsif $name == player1.name
+      $err = same_name
+    else
+      break
+    end
+  end
+  player2 = Player.new($name, 'O'.bold.light_red)
+  $err = nil
   puts "Hello, #{player2.name}, you are '#{player2.letter}'\n\n"
 end
 
