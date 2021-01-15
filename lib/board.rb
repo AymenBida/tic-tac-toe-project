@@ -24,7 +24,7 @@ class Board
       end
       move = move.to_i
     end
-    if !move.between?(1, 9) 
+    if !move.between?(1, 9)
       @err = invalid_error
       return false
     elsif @board[move - 1] == ' '

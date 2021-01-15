@@ -80,7 +80,7 @@ loop do
   if name == ''
     b.err = empty_name
     printed_error = empty_name
-  elsif player2 && name == player2.name 
+  elsif player2 && name == player2.name
     b.err = same_as_bot
     printed_error = same_as_bot
   else
