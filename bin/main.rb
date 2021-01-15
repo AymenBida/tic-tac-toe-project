@@ -120,7 +120,9 @@ loop do
   if player2.is_a?(Bot)
     puts bot_think
     sleep(2)
-    until b.make_move?(player2.do_something, player2); end
+    player2.bot_b.board = *b.board
+    move = player2.test_moves
+    b.make_move?(move, player2)
   else
     until b.make_move?(gets.chomp.to_i, player2)
       system('clear')
