@@ -1,4 +1,4 @@
-require 'colorize'
+require_relative '../lib/colorize.rb'
 
 def instructions
   system('clear')
@@ -62,7 +62,7 @@ def bot_think
 end
 
 def congrats(winner)
-  "\nΣυχγαρητήρια #{winner}!".bold.light_green
+  "\nΣυχγαρητήρια #{winner}!".bold.green
 end
 
 def draw_it_is
@@ -79,11 +79,11 @@ end
 # Error messages ----------------------------------------------
 
 def yes_or_no
-  'Παρακαλώ απαντήστε με ναι ή οχι.'.bold.light_yellow
+  'Παρακαλώ απαντήστε με ναι ή οχι.'.bold.yellow
 end
 
 def invalid_error
-  'Παρακαλώ διαλέξτε ένα νούμερα μεταξύ των 1 και 9.'.bold.light_red
+  'Παρακαλώ διαλέξτε ένα νούμερα μεταξύ των 1 και 9.'.bold.red
 end
 
 def place_taken

@@ -35,7 +35,7 @@ loop do
   end
   ans = gets.chomp.downcase
   if ans == yes
-    player2 = Bot.new('Bob', 'O'.bold.light_red)
+    player2 = Bot.new('Bob', 'O'.bold.red)
     break
   elsif ans == no
     break
@@ -56,7 +56,7 @@ loop do
   printed_error = empty_name
 end
 
-player1 = Player.new(name, 'X'.bold.light_blue)
+player1 = Player.new(name, 'X'.bold.blue)
 b.err = nil
 puts greet_player(player1)
 
@@ -78,7 +78,7 @@ unless player2
       break
     end
   end
-  player2 = Player.new(name, 'O'.bold.light_red)
+  player2 = Player.new(name, 'O'.bold.red)
   b.err = nil
   puts greet_player(player2)
 end

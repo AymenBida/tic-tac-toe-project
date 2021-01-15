@@ -1,4 +1,4 @@
-require 'colorize'
+require_relative '../lib/colorize.rb'
 
 def instructions
   system('clear')
@@ -62,7 +62,7 @@ def bot_think
 end
 
 def congrats(winner)
-  "\nCongratulations #{winner}!".bold.light_green
+  "\nCongratulations #{winner}!".bold.green
 end
 
 def draw_it_is
@@ -79,11 +79,11 @@ end
 # Error messages ----------------------------------------------
 
 def yes_or_no
-  'Please respond with yes or no.'.bold.light_yellow
+  'Please respond with yes or no.'.bold.yellow
 end
 
 def invalid_error
-  'Please enter a number between 1 and 9.'.bold.light_red
+  'Please enter a number between 1 and 9.'.bold.red
 end
 
 def place_taken
