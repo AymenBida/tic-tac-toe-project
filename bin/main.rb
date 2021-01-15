@@ -16,7 +16,7 @@ name = nil
 not_language = "Please choose one of the languages available by typing the language code (eg: 'en' for English)".bold.yellow
 # initialisation---------
 
-languages = { en: 'English', fr: 'Français', gr: 'Ελληνικά' }
+languages = { en: 'English', fr: 'Français', gr: 'Ελληνικά', tn: 'Tounsi' }
 loop do
   system('clear')
   puts "Welcome to Tic-Tac-Toe by Aymen and Patrick\n\n"
@@ -170,7 +170,6 @@ loop do
     break
   end
 end
-
 puts winner ? congrats(winner) : draw_it_is
 thanks
 

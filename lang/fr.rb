@@ -70,7 +70,7 @@ def bot_think
 end
 
 def congrats(winner)
-  "\nBravo #{winner}!".bold.green
+  "\nBravo #{winner}, vous avez gagné!".bold.green
 end
 
 def draw_it_is
