@@ -11,11 +11,11 @@ class Bot < Player
   def possible_moves?
     possible_moves = []
     9.times do |i|
-      if bot_b.make_move?(i + 1, self)
-        arr = [i+1, 0]
-        possible_moves.push(arr)
-        bot_b.board[i] = ' '
-      end
+      next unless bot_b.make_move?(i + 1, self)
+
+      arr = [i + 1, 0]
+      possible_moves.push(arr)
+      bot_b.board[i] = ' '
     end
     possible_moves
   end
@@ -23,9 +23,11 @@ class Bot < Player
   def test_moves
     pm = possible_moves?
     return choose_move(pm) if @level == '1'
+
     pm.each do |move|
       bot_b.make_move?(move[0], self)
       return move[0] if bot_b.win?
+
       move[1] += test_player_moves
       if @level == '3'
         move[1] -= 0.5 if move[0].even?
@@ -38,7 +40,7 @@ class Bot < Player
 
   def test_player_moves
     score = 0
-    player = Player.new('player' , 'X'.bold.blue)
+    player = Player.new('player', 'X'.bold.blue)
     pm = possible_moves?
     pm.each do |move|
       bot_b.make_move?(move[0], player)

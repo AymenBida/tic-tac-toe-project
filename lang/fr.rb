@@ -106,5 +106,5 @@ def same_name
 end
 
 def wrong_level
-  "Please choose a number between 1 and 3".bold.red
+  'Please choose a number between 1 and 3'.bold.red
 end

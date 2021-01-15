@@ -102,9 +102,9 @@ def empty_name
 end
 
 def same_name
-  "Παρακαλώ διαλέξτε διαφορετικό όνομα από τον παίκτη 1".bold.cyan
+  'Παρακαλώ διαλέξτε διαφορετικό όνομα από τον παίκτη 1'.bold.cyan
 end
 
 def wrong_level
-  "Please choose a number between 1 and 3".bold.red
+  'Please choose a number between 1 and 3'.bold.red
 end

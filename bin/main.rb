@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # rubocop:disable Metrics/BlockLength
+# rubocop:disable Layout/LineLength
 
 require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
@@ -15,11 +16,12 @@ name = nil
 not_language = "Please choose one of the languages available by typing the language code (eg: 'en' for English)".bold.yellow
 # initialisation---------
 
-languages = {en: 'English', fr: 'Français', gr: 'Ελληνικά'}
+languages = { en: 'English', fr: 'Français', gr: 'Ελληνικά' }
 loop do
   system('clear')
-  puts "Choose language :"
-  languages.each { |code, name| puts "#{code} - #{name}"}
+  puts "Welcome to Tic-Tac-Toe by Aymen and Patrick\n\n"
+  puts 'Choose language :'
+  languages.each { |code, lang| puts "#{code} - #{lang}" }
   puts b.err if b.err == not_language
   choice = gets.chomp.downcase.to_sym
   if languages.keys.any?(choice)
@@ -44,12 +46,18 @@ loop do
     loop do
       system('clear')
       puts level?
-      if b.err == wrong_level
-        puts b.err
-      end
+      puts b.err if b.err == wrong_level
       ans = gets.chomp
-      if ['1','2','3'].any?(ans)
-        player2 = Bot.new('Bob', 'O'.bold.red, ans)
+      if %w[1 2 3].any?(ans)
+        case ans
+        when '1'
+          bot_name = 'Bob'
+        when '2'
+          bot_name = 'Joe'
+        when '3'
+          bot_name = 'ProGamerXXX'
+        end
+        player2 = Bot.new(bot_name, 'O'.bold.red, ans)
         break
       else
         b.err = wrong_level
@@ -167,3 +175,4 @@ puts winner ? congrats(winner) : draw_it_is
 thanks
 
 # rubocop:enable Metrics/BlockLength
+# rubocop:enable Layout/LineLength
