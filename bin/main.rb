@@ -51,9 +51,9 @@ loop do
       if %w[1 2 3].any?(ans)
         case ans
         when '1'
-          bot_name = 'Bob'
+          bot_name = 'Dummy123'
         when '2'
-          bot_name = 'Joe'
+          bot_name = 'AverageJoe'
         when '3'
           bot_name = 'ProGamerXXX'
         end
@@ -74,13 +74,18 @@ end
 loop do
   system('clear')
   puts player_name?(1)
-  puts b.err if b.err == empty_name
+  puts b.err if b.err == empty_name || b.err == same_as_bot
   printed_name = gets.chomp
   name = printed_name.downcase.capitalize.strip
-  break unless name == ''
-
-  b.err = empty_name
-  printed_error = empty_name
+  if name == ''
+    b.err = empty_name
+    printed_error = empty_name
+  elsif player2 && name == player2.name 
+    b.err = same_as_bot
+    printed_error = same_as_bot
+  else
+    break
+  end
 end
 
 player1 = Player.new(name, 'X'.bold.blue)
@@ -125,7 +130,7 @@ b.show
 loop do
   print "\n"
   puts player_move?(player1)
-  until b.make_move?(gets.chomp.to_i, player1)
+  until b.make_move?(gets.chomp, player1)
     system('clear')
     puts "\n"
     b.show
@@ -151,7 +156,7 @@ loop do
     move = player2.test_moves
     b.make_move?(move, player2)
   else
-    until b.make_move?(gets.chomp.to_i, player2)
+    until b.make_move?(gets.chomp, player2)
       system('clear')
       puts "\n"
       b.show
@@ -170,7 +175,11 @@ loop do
     break
   end
 end
-puts winner ? congrats(winner) : draw_it_is
+if player2.is_a?(Bot) && winner == player2.name
+  puts you_lost(player1)
+else
+  puts winner ? congrats(winner) : draw_it_is
+end
 thanks
 
 # rubocop:enable Metrics/BlockLength

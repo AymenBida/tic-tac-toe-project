@@ -83,6 +83,10 @@ def thanks
   puts 'Καληνύχτα!'
 end
 
+def you_lost(player)
+  "Sorry #{player.name}, you lost!".bold.red
+end
+
 # Error messages ----------------------------------------------
 
 def yes_or_no
@@ -107,4 +111,8 @@ end
 
 def wrong_level
   'Παρακαλώ διαλέξτε ένα νούμερο μεταξύ του ένα και του τρία'.bold.red
+end
+
+def same_as_bot
+  "Sorry, this is the Bot's name, please choose another name".bold.yellow
 end

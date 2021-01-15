@@ -17,7 +17,14 @@ class Board
   end
 
   def make_move?(move, player)
-    if !move.between?(1, 9)
+    if move.is_a?(String)
+      if move.length > 1
+        @err = invalid_error
+        return false
+      end
+      move = move.to_i
+    end
+    if !move.between?(1, 9) 
       @err = invalid_error
       return false
     elsif @board[move - 1] == ' '
