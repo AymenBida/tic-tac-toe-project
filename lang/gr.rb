@@ -2,9 +2,9 @@ require_relative '../lib/colorize.rb'
 
 def instructions
   system('clear')
-  puts "You will have a 3x3 board and player 1 will have the first turn\n"
-  puts "When it's your turn enter the number of the square that you want to play (between 1 and 9)"
-  puts "Don't choose squares that are already occupied\n\n"
+  puts "Το παιχνίδι ξεκινάει σε έναν πίνακα 3Χ3 και ο παίκτης ένα έχει τον πρώτο γύρο\n"
+  puts "Όταν είναι η σειρά σου επέλεξε τον αριθμό του τετραγώνου που θές να παίξεις (μεταξύ 1 και 9)"
+  puts "Δεν μπορείται να επιλέξετε τετράγωνα που είναι ήδη κατειλλημένα\n\n"
   puts '    -------------'
   puts '    | 1 | 2 | 3 |'
   puts '    -------------'
@@ -12,9 +12,8 @@ def instructions
   puts '    -------------'
   puts '    | 7 | 8 | 9 |'
   puts '    -------------'
-  puts "\nThe winner is the first one to form a line with 3 symbols vertically, horizontally or diagonally\n"
-  puts ''
-  puts 'Press Enter to continue'
+  puts "\nΝικητής είναι ο παίκτης που θα σχηματίσει πρώτος μία γραμμή από τρία σύμβολα κάθετα, οριζόντια ή διαγώνια\n\n"
+  puts 'Πατήστε Enter για να συνεχίσετε'
   gets.chomp
 end
 
@@ -27,10 +26,10 @@ def alone?
 end
 
 def level?
-  "Choose the oppenent level:
-  1 - Easy (not so clever)
-  2 - Normal (not bad)
-  3 - Hard (the best you can do is a draw ^^)"
+  "Διαλέξτε επίπεδο αντιπάλου:
+  1 - Εύκολο (όχι και τόσο έξυπνος)
+  2 - Κανονικό (όχι και άσχημα)
+  3 - Δύσκολο (το καλύτερο που θα καταφέρεις είναι ισσοπαλλία ^^)"
 end
 
 def yes
@@ -107,5 +106,5 @@ def same_name
 end
 
 def wrong_level
-  'Please choose a number between 1 and 3'.bold.red
+  "Παρακαλώ διαλέξτε ένα νούμερο μεταξύ του ένα και του τρία".bold.red
 end
