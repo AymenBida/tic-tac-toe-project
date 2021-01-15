@@ -4,6 +4,11 @@
 
 This is a Tic Tac Toe game made with Ruby to be played in the terminal
 
+# Live Demo
+
+Click on ![this link](https://repl.it/@AymenBida/TicTacToeProject#README.md) and hit the RUN button
+
+
 ## Tic Tac Toe
 
 In order to win the game, a player must place three of their marks in a horizontal, vertical, or diagonal row.
