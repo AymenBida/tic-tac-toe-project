@@ -2,9 +2,9 @@ require_relative '../lib/colorize.rb'
 
 def instructions
   system('clear')
-  puts "You will have a 3x3 board and player 1 will have the first turn\n"
-  puts "When it's your turn enter the number of the square that you want to play (between 1 and 9)"
-  puts "Don't choose squares that are already occupied\n\n"
+  puts "Vous aurez un tableau 3x3 et le joueur 1 aura le premier tour\n"
+  puts "Quand c'est votre tour entrez le numéro du carré que vous voulez jouer (entre 1 et 9)"
+  puts "Ne pas choisir un carré déjà occupé\n\n"
   puts '    -------------'
   puts '    | 1 | 2 | 3 |'
   puts '    -------------'
@@ -12,8 +12,8 @@ def instructions
   puts '    -------------'
   puts '    | 7 | 8 | 9 |'
   puts '    -------------'
-  puts "\nThe winner is the first one to form a line with 3 symbols vertically, horizontally or diagonally\n\n"
-  puts 'Press Enter to continue'
+  puts "\nLe gagnant est le premier à former une ligne avec 3 symboles verticalement, horizontalement ou en diagonale\n\n"
+  puts 'Appuyer sur Entrer pour continuer'
   gets.chomp
 end
 
@@ -26,10 +26,10 @@ def alone?
 end
 
 def level?
-  "Choose the oppenent level:
-  1 - Easy (not so clever)
-  2 - Normal (not bad)
-  3 - Hard (the best you can do is a draw ^^)"
+  "Choisir la difficultée:
+  1 - Facile (vraiment pas brillant)
+  2 - Normal (pas mal)
+  3 - Difficile (vous ne pouvez pas gagner ^^)"
 end
 
 def yes
@@ -106,5 +106,5 @@ def same_name
 end
 
 def wrong_level
-  'Please choose a number between 1 and 3'.bold.red
+  'SVP choisir un nombre entre 1 et 3'.bold.red
 end
