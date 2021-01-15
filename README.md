@@ -6,7 +6,7 @@ This is a Tic Tac Toe game made with Ruby to be played in the terminal
 
 # Live Demo
 
-Click on ![this link](https://repl.it/@AymenBida/TicTacToeProject#README.md) and hit the RUN button
+Click on [this link](https://repl.it/@AymenBida/TicTacToeProject#README.md) and hit the RUN button
 
 
 ## Tic Tac Toe
