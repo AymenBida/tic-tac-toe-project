@@ -30,7 +30,7 @@ class Board
   end
 
   def draw?
-    true if @moves == 9
+    @moves == 9
   end
 
   def win?
