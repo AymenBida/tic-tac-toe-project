@@ -25,6 +25,13 @@ def alone?
   'Are you alone ? (yes/no)'
 end
 
+def level?
+  "Choose the oppenent level:
+  1 - Easy (not so clever)
+  2 - Normal (not bad)
+  3 - Hard (the best you can do is a draw ^^)"
+end
+
 def yes
   'yes'
 end
@@ -96,4 +103,8 @@ end
 
 def same_name
   "Please don't use the same name as player 1".bold.cyan
+end
+
+def wrong_level
+  "Please choose a number between 1 and 3".bold.red
 end

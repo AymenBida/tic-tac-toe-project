@@ -2,24 +2,13 @@ require_relative './colorize'
 
 class Bot < Player
   attr_accessor :bot_b
-  def initialize(name, letter)
-    super
+  def initialize(name, letter, level)
+    super(name, letter)
     @bot_b = Board.new
+    @level = level
   end
 
-  def do_something
-    rand(1..9)
-  end
-
-  def print_mind
-    3.times do |i|
-      puts '    -------------'
-      puts "    | #{bot_b.board[i * 3]} | #{bot_b.board[i * 3 + 1]} | #{bot_b.board[i * 3 + 2]} |"
-    end
-    puts '    -------------'
-  end
-
-  def possible_moves
+  def possible_moves?
     possible_moves = []
     9.times do |i|
       if bot_b.make_move?(i + 1, self)
@@ -32,13 +21,16 @@ class Bot < Player
   end
 
   def test_moves
-    pm = possible_moves
+    pm = possible_moves?
+    return choose_move(pm) if @level == '1'
     pm.each do |move|
       bot_b.make_move?(move[0], self)
       return move[0] if bot_b.win?
       move[1] += test_player_moves
-      move[1] -= 0.5 if move[0]%2 == 0
-      move[1] += 0.5 if move[0] == 5
+      if @level == '3'
+        move[1] -= 0.5 if move[0].even?
+        move[1] += 0.5 if move[0] == 5
+      end
       bot_b.board[move[0] - 1] = ' '
     end
     choose_move(pm)
@@ -47,17 +39,17 @@ class Bot < Player
   def test_player_moves
     score = 0
     player = Player.new('player' , 'X'.bold.blue)
-    pm = possible_moves
+    pm = possible_moves?
     pm.each do |move|
       bot_b.make_move?(move[0], player)
-      score = -1 if bot_b.win?
+      score += -1 if bot_b.win?
       bot_b.board[move[0] - 1] = ' '
     end
     score
   end
 
   def choose_move(pos_moves)
-    score = -2
+    score = -99
     selected_moves = []
     pos_moves.each do |move|
       score = move[1] if score < move[1]

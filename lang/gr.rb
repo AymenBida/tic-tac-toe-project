@@ -25,6 +25,13 @@ def alone?
   'Παίζεται μόνος ? (ναι/οχι)'
 end
 
+def level?
+  "Choose the oppenent level:
+  1 - Easy (not so clever)
+  2 - Normal (not bad)
+  3 - Hard (the best you can do is a draw ^^)"
+end
+
 def yes
   'ναι'
 end
@@ -96,4 +103,8 @@ end
 
 def same_name
   "Παρακαλώ διαλέξτε διαφορετικό όνομα από τον παίκτη 1".bold.cyan
+end
+
+def wrong_level
+  "Please choose a number between 1 and 3".bold.red
 end

@@ -4,17 +4,7 @@
 require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
 require_relative '../lib/bot.rb'
-
-languages = %w[en fr gr]
-puts "Type 'EN' for english (english is default)"
-puts "Ecrire 'FR' pour le français"
-puts "Γράψτε 'GR' για Ελληνικά"
-choice = gets.chomp.downcase
-if languages.any?(choice)
-  require_relative "../lang/#{choice}.rb"
-else
-  require_relative '../lang/en.rb'
-end
+require_relative '../lib/colorize.rb'
 
 # initialisation---------
 b = Board.new
@@ -22,7 +12,23 @@ player2 = nil
 printed_name = nil
 printed_error = nil
 name = nil
+not_language = "Please choose one of the languages available by typing the language code (eg: 'en' for English)".bold.yellow
 # initialisation---------
+
+languages = {en: 'English', fr: 'Français', gr: 'Ελληνικά'}
+loop do
+  system('clear')
+  puts "Choose language :"
+  languages.each { |code, name| puts "#{code} - #{name}"}
+  puts b.err if b.err == not_language
+  choice = gets.chomp.downcase.to_sym
+  if languages.keys.any?(choice)
+    require_relative "../lang/#{choice}.rb"
+    break
+  else
+    b.err = not_language
+  end
+end
 
 loop do
   system('clear')
@@ -35,7 +41,20 @@ loop do
   end
   ans = gets.chomp.downcase
   if ans == yes
-    player2 = Bot.new('Bob', 'O'.bold.red)
+    loop do
+      system('clear')
+      puts level?
+      if b.err == wrong_level
+        puts b.err
+      end
+      ans = gets.chomp
+      if ['1','2','3'].any?(ans)
+        player2 = Bot.new('Bob', 'O'.bold.red, ans)
+        break
+      else
+        b.err = wrong_level
+      end
+    end
     break
   elsif ans == no
     break
