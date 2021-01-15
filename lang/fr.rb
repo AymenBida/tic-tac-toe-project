@@ -12,7 +12,8 @@ def instructions
   puts '    -------------'
   puts '    | 7 | 8 | 9 |'
   puts '    -------------'
-  puts "\nLe gagnant est le premier à former une ligne avec 3 symboles verticalement, horizontalement ou en diagonale\n\n"
+  puts "\nLe gagnant est le premier à former une ligne avec 3 symboles verticalement, horizontalement ou en diagonale\n"
+  puts ''
   puts 'Appuyer sur Entrer pour continuer'
   gets.chomp
 end
