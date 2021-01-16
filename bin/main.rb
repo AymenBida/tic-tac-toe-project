@@ -128,73 +128,87 @@ puts see_instructions?
 instructions if gets.chomp.downcase == yes
 # Show instructions--------------------------------------------------
 
-# Prepare game-------------------------------------------------------
-system('clear')
-puts building
-winner = false
-b.build
-system('clear')
-puts done
-b.show
-# Prepare game-------------------------------------------------------
-
-# Start game---------------------------------------------------------
 loop do
-  print "\n"
-  puts player_move?(player1)
-  until b.make_move?(gets.chomp, player1)
-    system('clear')
-    puts "\n"
-    b.show
-    puts "\n"
-    puts player_move?(player1)
-    puts b.err
-  end
+  # Prepare game-------------------------------------------------------
+  b = Board.new
   system('clear')
-  puts "\n"
+  puts building
+  winner = false
+  b.build
+  system('clear')
+  puts done
   b.show
-  if b.win?
-    winner = player1.name
-    break
-  elsif b.draw?
-    break
-  end
-  print "\n"
-  puts player_move?(player2)
-  if player2.is_a?(Bot)
-    puts bot_think
-    sleep(2)
-    player2.bot_b.board = *b.board
-    move = player2.test_moves
-    b.make_move?(move, player2)
-  else
-    until b.make_move?(gets.chomp, player2)
+  # Prepare game-------------------------------------------------------
+
+  # Start game---------------------------------------------------------
+  loop do
+    print "\n"
+    puts player_move?(player1)
+    until b.make_move?(gets.chomp, player1)
       system('clear')
       puts "\n"
       b.show
       puts "\n"
-      puts player_move?(player2)
+      puts player_move?(player1)
       puts b.err
     end
+    system('clear')
+    puts "\n"
+    b.show
+    if b.win?
+      winner = player1.name
+      break
+    elsif b.draw?
+      break
+    end
+    print "\n"
+    puts player_move?(player2)
+    if player2.is_a?(Bot)
+      puts bot_think
+      sleep(2)
+      player2.bot_b.board = *b.board
+      move = player2.test_moves
+      b.make_move?(move, player2)
+    else
+      until b.make_move?(gets.chomp, player2)
+        system('clear')
+        puts "\n"
+        b.show
+        puts "\n"
+        puts player_move?(player2)
+        puts b.err
+      end
+    end
+    system('clear')
+    puts "\n"
+    b.show
+    if b.win?
+      winner = player2.name
+      break
+    elsif b.draw?
+      break
+    end
   end
-  system('clear')
-  puts "\n"
-  b.show
-  if b.win?
-    winner = player2.name
-    break
-  elsif b.draw?
-    break
+  # Start game---------------------------------------------------------
+
+  # Show results-------------------------------------------------------
+  if player2.is_a?(Bot) && winner == player2.name
+    puts you_lost(player1)
+  else
+    puts winner ? congrats(winner) : draw_it_is
   end
+  # Show results-------------------------------------------------------
+
+  # Ask for restart----------------------------------------------------
+  puts ''
+  puts restart?
+  res = gets.chomp.downcase
+  # Ask for restart----------------------------------------------------
+
+  break if res == no
 end
-# Start game---------------------------------------------------------
 
 # Finish game--------------------------------------------------------
-if player2.is_a?(Bot) && winner == player2.name
-  puts you_lost(player1)
-else
-  puts winner ? congrats(winner) : draw_it_is
-end
 thanks
 # Finish game--------------------------------------------------------
 

@@ -88,6 +88,10 @@ def you_lost(player)
   "Sorry #{player.name}, you lost!".bold.red
 end
 
+def restart?
+  'Voulez-vous rejouer ?'
+end
+
 # Error messages ----------------------------------------------
 
 def yes_or_no
