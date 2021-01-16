@@ -7,15 +7,16 @@ require_relative '../lib/player.rb'
 require_relative '../lib/bot.rb'
 require_relative '../lib/colorize.rb'
 
-# initialisation---------
+# initialize---------------------------------------------------------
 b = Board.new
 player2 = nil
 printed_name = nil
 printed_error = nil
 name = nil
-not_language = "Please choose one of the languages available by typing the language code (eg: 'en' for English)".bold.yellow
-# initialisation---------
+not_language = "Please choose one of the available languages by typing the language code (eg: 'en' for English)".bold.yellow
+# initialize---------------------------------------------------------
 
+# Choose language----------------------------------------------------
 languages = { en: 'English', fr: 'Français', gr: 'Ελληνικά', tn: 'Tounsi' }
 loop do
   system('clear')
@@ -31,7 +32,9 @@ loop do
     b.err = not_language
   end
 end
+# Choose language----------------------------------------------------
 
+# Choose game mode---------------------------------------------------
 loop do
   system('clear')
   puts welcome
@@ -70,7 +73,9 @@ loop do
     b.err = yes_or_no
   end
 end
+# Choose game mode---------------------------------------------------
 
+# Create Player 1----------------------------------------------------
 loop do
   system('clear')
   puts player_name?(1)
@@ -91,7 +96,9 @@ end
 player1 = Player.new(name, 'X'.bold.blue)
 b.err = nil
 puts greet_player(player1)
+# Create Player 1----------------------------------------------------
 
+# Create Player 2----------------------------------------------------
 unless player2
   loop do
     system('clear')
@@ -114,19 +121,24 @@ unless player2
   b.err = nil
   puts greet_player(player2)
 end
+# Create Player 2----------------------------------------------------
 
+# Show instructions--------------------------------------------------
 puts see_instructions?
 instructions if gets.chomp.downcase == yes
+# Show instructions--------------------------------------------------
+
+# Prepare game-------------------------------------------------------
 system('clear')
-
 puts building
-
 winner = false
 b.build
 system('clear')
 puts done
 b.show
+# Prepare game-------------------------------------------------------
 
+# Start game---------------------------------------------------------
 loop do
   print "\n"
   puts player_move?(player1)
@@ -175,12 +187,16 @@ loop do
     break
   end
 end
+# Start game---------------------------------------------------------
+
+# Finish game--------------------------------------------------------
 if player2.is_a?(Bot) && winner == player2.name
   puts you_lost(player1)
 else
   puts winner ? congrats(winner) : draw_it_is
 end
 thanks
+# Finish game--------------------------------------------------------
 
 # rubocop:enable Metrics/BlockLength
 # rubocop:enable Layout/LineLength
